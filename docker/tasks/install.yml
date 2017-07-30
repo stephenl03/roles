@@ -1,0 +1,22 @@
+---
+# install docker
+
+- name: Set Package Name
+  set_fact:
+    docker_pkg: docker
+  when: docker_pkg is not defined
+
+- name: Install docker
+  yum:
+    name: '{{ docker_pkg }}'
+    state: present
+
+- name: Install libselinux-python
+  yum:
+    name: libselinux-python
+    state: present
+
+- name: Configure EPEL Repository
+  yum:
+    name: epel-release
+    state: present

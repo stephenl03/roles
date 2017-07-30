@@ -1,0 +1,13 @@
+---
+# setup disk for docker
+
+- parted:
+    device: /dev/xvdb
+    number: 1
+    state: present
+
+- lvol:
+    vg: firefly
+    lv: test
+    size: 100%FREE
+    pvs: /dev/xvdb1
