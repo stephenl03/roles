@@ -14,3 +14,15 @@
     vg: vgdocker00
     lv: lvdocker00
     size: 100%FREE
+
+- name: Make filesystem
+  filesystem:
+    fstype: ext4
+    dev: /dev/vgdocker00/lvdocker00
+
+- name: Mount disk to /var/lib/docker
+  mount:
+    name: /var/lib/docker
+    src: /dev/vgdocker00/lvdocker00
+    fstype: ext4
+    state: mounted
