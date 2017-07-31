@@ -1,6 +1,5 @@
 ---
 # setup disk for docker
-
 - parted:
     device: /dev/xvdb
     number: 1
