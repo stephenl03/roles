@@ -1,12 +1,16 @@
 ---
 # setup disk for docker
-- parted:
-    device: /dev/xvdb
-    number: 1
-    state: present
 
-- lvol:
-    vg: firefly
-    lv: test
-    size: 100%FREE
+- name: Partition /dev/xvdb
+  command: parted -s /dev/xvdb mklabel gpt mkpart primary 1 100%
+
+- name: Configure volume group
+  lvg:
     pvs: /dev/xvdb1
+    vg: vgdocker00
+
+- name: Configure logical volume
+  lvol:
+    vg: vgdocker00
+    lv: lvdocker00
+    size: 100%FREE
