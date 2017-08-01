@@ -1,12 +1,12 @@
 ---
 # setup disk for docker
 
-- name: Partition /dev/xvdb
+- name: Partition /dev/xvdf
   command: parted -s /dev/xvdb mklabel gpt mkpart primary 1 100%
 
 - name: Configure volume group
   lvg:
-    pvs: /dev/xvdb1
+    pvs: /dev/xvdf1
     vg: vgdocker00
 
 - name: Configure logical volume
