@@ -7,13 +7,27 @@
 - name: Configure volume group
   lvg:
     pvs: /dev/xvdf1
-    vg: vgdocker00
+    vg: vgdocker
 
-- name: Configure logical volume
+- name: Configure thinpool logical volume
   lvol:
-    vg: vgdocker00
-    lv: lvdocker00
-    size: 100%FREE
+    vg: vgdocker
+    lv: thinpool
+    size: 95%VG
+    opts: --wipesignatures y
+
+- name: Configure thinpoolmeta logical volume
+  lvol:
+    vg: vgdocker
+    lv: thinpoolmeta
+    size: 1%VG
+    opts: --wipesignatures y
+
+- name: Running lvconvert
+  command: lvconvert -y --zero n -c 512K --thinpool vgdocker/thinpool --poolmetadata vgdocker/thinpoolmeta
+
+- name: Applying metadataprofile
+  command: lvchange --metadataprofile docker-thinpool vgdocker/thinpool
 
 - name: Make filesystem
   filesystem:
