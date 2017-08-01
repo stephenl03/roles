@@ -1,4 +1,6 @@
 ---
 # tasks file for docker
+
 - include: install.yml
 - include: configure.yml
+- include: service.yml

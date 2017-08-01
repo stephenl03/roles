@@ -1,28 +1,7 @@
 ---
-# setup disk for docker
+# Configure disk and docker
 
-- name: Partition /dev/xvdf
-  command: parted -s /dev/xvdb mklabel gpt mkpart primary 1 100%
-
-- name: Configure volume group
-  lvg:
-    pvs: /dev/xvdf1
-    vg: vgdocker00
-
-- name: Configure logical volume
-  lvol:
-    vg: vgdocker00
-    lv: lvdocker00
-    size: 100%FREE
-
-- name: Make filesystem
-  filesystem:
-    fstype: ext4
-    dev: /dev/vgdocker00/lvdocker00
-
-- name: Mount disk to /var/lib/docker
-  mount:
-    name: /var/lib/docker
-    src: /dev/vgdocker00/lvdocker00
-    fstype: ext4
-    state: mounted
+- name: Checking if disk needs to be configured
+  include: configure_disk.yml
+  when: not item.value.partitions and item.key == "xvdf"
+  with_dict: "{{ ansible_devices }}"
