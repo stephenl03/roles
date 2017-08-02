@@ -3,13 +3,11 @@
 
 - name: Copy docker-thinpool.profile to /etc/lvm/profile/
   copy:
-    src: files/"{{ item }}"
+    src: docker-thinpool.profile
     dest: /etc/lvm/profile/
     owner: root
     group: root
     mode: 0644
-  with_items:
-    docker-thinpool.profile
 
 - name: Partition /dev/xvdf
   command: parted -s /dev/xvdf mklabel gpt mkpart primary 1 100%
@@ -38,15 +36,3 @@
 
 - name: Applying metadataprofile
   command: lvchange --metadataprofile docker-thinpool vgdocker/thinpool
-
-#- name: Make filesystem
-#  filesystem:
-#    fstype: ext4
-#    dev: /dev/vgdocker/thinpool
-
-#- name: Mount disk to /var/lib/docker
-#  mount:
-#    name: /var/lib/docker
-#    src: /dev/vgdocker/thinpool
-#    fstype: ext4
-#    state: mounted
