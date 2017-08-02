@@ -11,16 +11,6 @@
   with_items:
     daemon.json
 
-- name: Copy docker-thinpool.profile to /etc/lvm/profile/
-  copy:
-    src: "{{ item }}"
-    dest: /etc/lvm/profile/
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    docker-thinpool.profile
-
 - name: Checking if disk needs to be configured
   no_log: true
   include: configure_disk.yml
