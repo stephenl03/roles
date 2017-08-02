@@ -1,7 +1,7 @@
 ---
 # install docker packages
 
-- name: Set Package Name
+- name: Set Package Name to docker
   set_fact:
     docker_pkg: docker
   when: docker_pkg is not defined

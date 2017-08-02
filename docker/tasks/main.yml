@@ -3,4 +3,7 @@
 
 - include: install.yml
 - include: configure.yml
+- include: configure_disk.yml
+  when: not item.value.partitions and item.key == "xvdf"
+  with_dict: "{{ ansible_devices }}"
 - include: service.yml
