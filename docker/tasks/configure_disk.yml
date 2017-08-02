@@ -3,14 +3,14 @@
 
 - name: Copy docker-thinpool.profile to /etc/lvm/profile/
   copy:
-    src: "{{ item }}"
+    src: files/"{{ item }}"
     dest: /etc/lvm/profile/
     owner: root
     group: root
     mode: 0644
   with_items:
     docker-thinpool.profile
-    
+
 - name: Partition /dev/xvdf
   command: parted -s /dev/xvdf mklabel gpt mkpart primary 1 100%
 
