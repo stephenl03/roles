@@ -1,0 +1,8 @@
+---
+- name: Install and configure docker
+  connection: local
+  hosts: localhost
+  roles:
+  - docker
+#  tasks:
+#  - include: configure_disk.yml
