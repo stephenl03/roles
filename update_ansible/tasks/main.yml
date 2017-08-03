@@ -1,0 +1,8 @@
+---
+# tasks file for update_ansible
+
+---
+- name: update ansible
+  pip:
+    name: ansible
+    extra_args: --upgrade
