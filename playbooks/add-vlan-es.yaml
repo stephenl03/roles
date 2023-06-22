@@ -1,7 +1,9 @@
 ---
 - hosts: all
+  gather_facts: no
+  become: yes
+  connection: network_cli
 
-  become: true
   tasks:
     - name: Create vlan
       community.network.edgeswitch_vlan:
