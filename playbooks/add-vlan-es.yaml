@@ -1,0 +1,10 @@
+---
+- hosts: all
+
+  become: true
+  tasks:
+    - name: Create vlan
+      community.network.edgeswitch_vlan:
+        vlan_id: 199
+        name: voice
+        action: present
