@@ -9,4 +9,4 @@
       community.network.edgeswitch_vlan:
         vlan_id: 199
         name: voice
-        action: present
+        state: present
