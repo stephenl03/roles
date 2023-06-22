@@ -1,7 +1,12 @@
 ---
 - hosts: all
-  connection: ansible.netcommon.network_cli
+  gather_facts: no
+  become: yes
+  connection: network_cli
 
   tasks:
+    - name: Gather facts
+      edgeswitch_facts:
+      
     - name: Example from an Ansible Playbook
       ansible.builtin.ping:
