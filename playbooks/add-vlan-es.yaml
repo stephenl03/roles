@@ -7,6 +7,6 @@
   tasks:
     - name: Create vlan
       community.network.edgeswitch_vlan:
-        vlan_id: 199
-        name: voice
+        vlan_id: 30
+        name: pxe
         state: present
