@@ -2,6 +2,9 @@
 - hosts: all
   gather_facts: no
 
+  collections:
+    - community.network
+
   vars_prompt:
     - name: "vlan_id"
       prompt: "Enter VLAN ID"
@@ -12,9 +15,9 @@
   
   tasks:
     - name: Add interfaces to VLAN
-      community.network.edgeswitch_vlan:
+      edgeswitch_vlan:
         vlan_id: "{{ vlan_id }}"
-        interfaces:
+        tagged_interfaces:
           - "{{ interface }}"
         state: present
       become: yes
