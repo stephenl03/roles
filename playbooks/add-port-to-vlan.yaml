@@ -20,4 +20,5 @@
         untagged_interfaces:
           - "{{ interface }}"
         state: present
+        auto_untag: true
       become: yes
