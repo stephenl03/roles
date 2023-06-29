@@ -19,7 +19,6 @@
         vlan_id: "{{ vlan_id_add }}"
         untagged_interfaces:
           - "{{ interface }}"
-        state: present
         auto_exclude: true
       become: yes
 
