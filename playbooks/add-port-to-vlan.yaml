@@ -6,19 +6,28 @@
     - community.network
 
   vars_prompt:
-    - name: "vlan_id"
-      prompt: "Enter VLAN ID"
+    - name: "vlan_id_add"
       private: no
     - name: "interface"
-      prompt: "Enter interface"
+      private: no
+    - name: "vlan_id_remove"
       private: no
   
   tasks:
-    - name: Add interfaces to VLAN
+    - name: Add interface to VLAN
       edgeswitch_vlan:
-        vlan_id: "{{ vlan_id }}"
+        vlan_id: "{{ vlan_id_add }}"
         untagged_interfaces:
           - "{{ interface }}"
         state: present
+        auto_exclude: true
+      become: yes
+
+    - name: Remove interface to VLAN
+      edgeswitch_vlan:
+        vlan_id: "{{ vlan_id_remove }}"
+        untagged_interfaces:
+          - "{{ interface }}"
+        state: absent
         auto_exclude: true
       become: yes
