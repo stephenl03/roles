@@ -26,7 +26,7 @@
     - name: Remove interface to VLAN
       edgeswitch_vlan:
         vlan_id: "{{ vlan_id_remove }}"
-        untagged_interfaces:
+        excluded_interfaces:
           - "{{ interface }}"
         state: absent
         auto_exclude: true
