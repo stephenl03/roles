@@ -28,6 +28,5 @@
         vlan_id: "{{ vlan_id_remove }}"
         excluded_interfaces:
           - "{{ interface }}"
-        state: absent
         auto_exclude: true
       become: yes
