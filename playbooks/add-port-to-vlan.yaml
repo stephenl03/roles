@@ -6,26 +6,18 @@
     - community.network
 
   vars_prompt:
-    - name: "vlan_id_add"
+    - name: "vlan_id"
       private: no
     - name: "interface"
       private: no
-    - name: "vlan_id_remove"
-      private: no
   
   tasks:
-    - name: Add interface to VLAN
-      edgeswitch_vlan:
-        vlan_id: "{{ vlan_id_add }}"
-        untagged_interfaces:
-          - "{{ interface }}"
-        auto_exclude: true
+    - name: Show interface
+      edgeos_command:
+        commands: show interfaces switchport {{ interface }}
       become: yes
 
-    - name: Remove interface to VLAN
-      edgeswitch_vlan:
-        vlan_id: "{{ vlan_id_remove }}"
-        excluded_interfaces:
-          - "{{ interface }}"
-        auto_exclude: true
+    - name: Show vlan
+      edgeos_command:
+        commands: show vlan {{ vlan_id }}
       become: yes
