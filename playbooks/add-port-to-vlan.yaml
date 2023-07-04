@@ -19,6 +19,7 @@
           - vlan pvid 30
           - vlan participation include 30
           - vlan participation exclude 1,10,50,70,199
+      become: yes
 
     - name: Shutdown interface
       edgeos_command:
