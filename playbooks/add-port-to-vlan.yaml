@@ -19,6 +19,7 @@
           - vlan pvid 30
           - vlan participation include 30
           - vlan participation exclude 1,10,50,70,199
+          - end
       become: yes
 
     - name: Shutdown interface
@@ -27,6 +28,7 @@
           - configure
           - interface {{ interface }}
           - shutdown
+          - end
       become: yes
 
     - name: Pause for 5 seconds
@@ -39,4 +41,5 @@
           - configure
           - interface {{ interface }}
           - no shutdown
+          - end
       become: yes
