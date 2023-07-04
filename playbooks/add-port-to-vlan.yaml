@@ -13,7 +13,6 @@
     - name: Configure interface for PXE network
       edgeos_command:
         commands:
-          - show interfaces switchport {{ interface }}
           - interface {{ interface }}
           - vlan pvid 30
           - vlan participation include 30
