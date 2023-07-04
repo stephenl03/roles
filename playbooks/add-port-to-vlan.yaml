@@ -24,8 +24,10 @@
     - name: Shutdown interface
       edgeos_command:
         commands:
+          - configure
           - interface {{ interface }}
           - shutdown
+      become: yes
 
     - name: Pause for 5 seconds
       ansible.builtin.pause:
@@ -34,5 +36,7 @@
     - name: Activate interface
       edgeos_command:
         commands:
+          - configure
           - interface {{ interface }}
           - no shutdown
+      become: yes
