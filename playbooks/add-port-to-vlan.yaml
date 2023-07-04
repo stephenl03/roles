@@ -6,18 +6,31 @@
     - community.network
 
   vars_prompt:
-    - name: "vlan_id"
-      private: no
     - name: "interface"
       private: no
   
   tasks:
-    - name: Show interface
+    - name: Configure interface for PXE network
       edgeos_command:
-        commands: show interfaces switchport {{ interface }}
-      become: yes
+        commands:
+          - show interfaces switchport {{ interface }}
+          - interface {{ interface }}
+          - vlan pvid 30
+          - vlan participation include 30
+          - vlan participation exclude 1,10,50,70,199
 
-    - name: Show vlan
+    - name: Shutdown interface
       edgeos_command:
-        commands: show vlan {{ vlan_id }}
-      become: yes
+        commands:
+          - interface {{ interface }}
+          - shutdown
+
+    - name: Pause for 5 seconds
+      ansible.builtin.pause:
+        seconds: 5
+
+    - name: Activate interface
+      edgeos_command:
+        commands:
+          - interface {{ interface }}
+          - no shutdown
