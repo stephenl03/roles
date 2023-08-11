@@ -17,8 +17,8 @@
           - configure
           - interface {{ interface }}
           - vlan pvid 30
-          - vlan participation include 30
           - vlan participation exclude 1,10,50,70,199
+          - vlan participation include 30
           - end
       become: yes
 
@@ -31,9 +31,9 @@
           - end
       become: yes
 
-    - name: Pause for 5 seconds
+    - name: Pause for 3 seconds
       ansible.builtin.pause:
-        seconds: 5
+        seconds: 3
 
     - name: Activate interface
       edgeos_command:

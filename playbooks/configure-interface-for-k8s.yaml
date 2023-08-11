@@ -1,0 +1,47 @@
+---
+- hosts: all
+  gather_facts: no
+
+  collections:
+    - community.network
+
+  vars_prompt:
+    - name: "interface"
+      private: no
+  
+  tasks:
+    - name: Configure interface for k8s network
+      edgeos_command:
+        commands:
+          - show interfaces switchport {{ interface }}
+          - configure
+          - interface {{ interface }}
+          - vlan pvid 50
+          - vlan participation exclude 1,10,30,70,199
+          - vlan participation include 50
+          - end
+      become: yes
+
+    - name: Shutdown interface
+      edgeos_command:
+        commands:
+          - configure
+          - interface {{ interface }}
+          - shutdown
+          - end
+      become: yes
+
+    - name: Pause for 3 seconds
+      ansible.builtin.pause:
+        seconds: 3
+
+    - name: Activate interface
+      edgeos_command:
+        commands:
+          - configure
+          - interface {{ interface }}
+          - no shutdown
+          - end
+          - commit
+          - save
+      become: yes
